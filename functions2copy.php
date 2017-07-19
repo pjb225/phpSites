@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Used to store different static data.
+ * Used to store different static data.changeTest
  *
  * @var array
  */
