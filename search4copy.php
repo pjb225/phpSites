@@ -8,27 +8,7 @@
 
 
 <?php
-echo "<table style='border: solid 1px black;'>";
- echo "<tr><th>SearchString</th><th>Country</th><th>Language</th><th>Category</th><th>Visits</th></tr>";
 
-
-class TableRows extends RecursiveIteratorIterator {
-    function __construct($it) {
-        parent::__construct($it, self::LEAVES_ONLY);
-    }
-
-    function current() {
-        return "<td style='width: 150px; border: 1px solid black;'>" . parent::current(). "</td>";
-    }
-
-    function beginChildren() {
-        echo "<tr>";
-    }
-
-    function endChildren() {
-        echo "</tr>" . "\n";
-    }
-}
 
 
 $db->pdo = new PDO('mysql:host=localhost;dbname=giexample;charset=utf8', 'root', '');
@@ -45,6 +25,7 @@ $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $searchquery4 = $_GET["searchquery4"];
       $searchquery5 = $_GET["searchquery5"];
 
+
       $stmt = $db->prepare("SELECT * FROM `gi2015_v2` WHERE `searchstring` LIKE :searchquery
         AND `country` LIKE :country
         AND `searchlanguage` LIKE :lang
@@ -56,16 +37,33 @@ $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 ':country' => "%" . $searchquery2 . "%",
 ':lang' => "%" . $searchquery3 . "%",
 ':category' => "%" . $searchquery4 . "%",
-':visits' => "%" . $searchquery5 . "%"
+':visits' => "%" . $searchquery5 . "%",
     ));
 
-$result = $stmt->setFetchMode (PDO::FETCH_ASSOC);
+    $filelocation = 'C:/Users/PJ/Desktop/Getty';
+    	$filename  = 'export-'.date('Y-m-d H.i.s').'.csv';
 
-foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v)
-{
-    echo $v;
-}
-}
+
+        $data = fopen($filelocation.$filename, 'w')  or die('Permission error');
+
+
+        $csv_fields = array();
+
+       	$csv_fields[] = 'searchstring';
+       	$csv_fields[] = 'country';
+       	$csv_fields[] = 'searchlanguage';
+       	$csv_fields[] = 'searchtype';
+        $csv_fields[] = 'visits';
+
+
+       	fputcsv($data, $csv_fields);
+
+           while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+               fputcsv($data, $row);
+           }
+fclose($data);
+       }
+
 
 
 ?>
