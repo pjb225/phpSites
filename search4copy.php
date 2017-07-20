@@ -44,24 +44,19 @@ $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $searchquery3 = $_GET["searchquery3"];
       $searchquery4 = $_GET["searchquery4"];
       $searchquery5 = $_GET["searchquery5"];
-      $searchquery6 = $_GET["searchquery6"];
-      $searchquery7 = $_GET["searchquery7"];
+
       $stmt = $db->prepare("SELECT * FROM `gi2015_v2` WHERE `searchstring` LIKE :searchquery
         AND `country` LIKE :country
         AND `searchlanguage` LIKE :lang
         AND `searchtype` LIKE :category
         AND `Visits` >= :visits
-        AND `date` >= :startdate
-        AND `date` <= :enddate
 
       ");
       $stmt->execute(array(':searchquery' => "%" . $searchquery . "%",
 ':country' => "%" . $searchquery2 . "%",
 ':lang' => "%" . $searchquery3 . "%",
 ':category' => "%" . $searchquery4 . "%",
-':visits' => "%" . $searchquery5 . "%",
-':startdate' => "%" . $searchquery6 . "%",
-':enddate' => "%" . $searchquery7 . "%",
+':visits' => "%" . $searchquery5 . "%"
     ));
 
 $result = $stmt->setFetchMode (PDO::FETCH_ASSOC);
