@@ -32,7 +32,7 @@ $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 ?>
 <div id="result">
-    <?php include('search4copy.php'); ?>
+    <?php include('search4copyCSV.php'); ?>
 </div>
 
 <form action="index4copy.php" id="form" method="GET">
@@ -41,8 +41,8 @@ $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 <input type="text" id="searchquery3" name="searchquery3" placeholder="Language"></input><br/>
 <input type="text" id="searchquery4" name="searchquery4" placeholder="Category"></input><br/>
 <input type="text" id="searchquery5" name="searchquery5" placeholder="Visits"></input><br/>
-<input type="text" id="searchquery6" name="searchquery6" placeholder="StartDate"></input>Start Date<br/>
-<input type="text" id="searchquery7" name="searchquery7" placeholder="EndDate"></input>End Date<br/>
+<input type="date" id="searchquery6" name="searchquery6" placeholder="StartDate"></input>Start Date<br/>
+<input type="date" id="searchquery7" name="searchquery7" placeholder="EndDate"></input>End Date<br/>
 <input type="submit" name="submit" value="Submit"></input>
 </form>
 
