@@ -11,7 +11,7 @@
 
 
 
-$db->pdo = new PDO('mysql:host=localhost;dbname=giexample;charset=utf8', 'root', '');
+$db->pdo = new PDO('mysql:host=localhost;dbname=girecent;charset=utf8', 'root', '');
 $db->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
@@ -26,7 +26,7 @@ $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $searchquery5 = $_GET["searchquery5"];
 
 
-      $stmt = $db->prepare("SELECT * FROM `gi2015_v2` WHERE `searchstring` LIKE :searchquery
+      $stmt = $db->prepare("SELECT * FROM `giall` WHERE `searchstring` LIKE :searchquery
         AND `country` LIKE :country
         AND `searchlanguage` LIKE :lang
         AND `searchtype` LIKE :category
@@ -40,11 +40,11 @@ $db->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 ':visits' => "%" . $searchquery5 . "%",
     ));
 
-    $filelocation = 'C:/Users/PJ/Desktop/Getty';
+
     	$filename  = 'export-'.date('Y-m-d H.i.s').'.csv';
 
 
-        $data = fopen($filelocation.$filename, 'w')  or die('Permission error');
+        $data = fopen($filename, 'w')  or die('Permission error');
 
 
         $csv_fields = array();
